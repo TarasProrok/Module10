@@ -1,0 +1,6 @@
+name age
+alice 21
+ryan 30
+Anar 59
+Vika 15
+Lama 22
