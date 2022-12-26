@@ -11,38 +11,33 @@ import java.util.HashMap;
 public class TextFileToJSONFile {
     public static void main(String[] args) throws IOException {
         HashMap<String, String> hashMap = new HashMap<>();
-        // creating reader of file
+        String[] words = new String[0];
         try (BufferedReader br = new BufferedReader
                 (new FileReader("/Users/mac/Desktop/Java/Module10/src/file2.txt"))) {
-            String[] words;
-            // reading line of file
             br.readLine(); // <-- skipping first line
             String line = br.readLine();
-            // splitting line on words and putting them in array
             while (line != null) {
                 words = line.split(" ");
-                System.out.println(Arrays.toString(words)); // printing array
-                for (int i = 0; i < words.length; i++) {
-                    System.out.println("i- " + i + " value- " + words[i]); //printing with i and values
-                }
                 hashMap.put(words[0], words[1]);
                 line = br.readLine();
             }
         }
-        System.out.println(hashMap);
-
-            User user = new User(hashMap, hashMap);
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String json = gson.toJson(user);
-
-            System.out.println(json);
+        User user = new User(words[0], words[1]);
+        ArrayList users = new ArrayList();
+        for (int i = 0; i<hashMap.size(); i++){
+            users.add(user);
         }
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(users);
+        System.out.println(json);
     }
-    class User {
-        private HashMap name;
-        private HashMap age;
+}
 
-        public User(HashMap<String, String> name, HashMap<String, String> age) {
+    class User {
+        private String name;
+        private String age;
+
+        public User(String name, String age) {
             this.name = name;
             this.age = age;
         }
